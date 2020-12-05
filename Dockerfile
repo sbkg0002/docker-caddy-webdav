@@ -1,4 +1,4 @@
-FROM busybox:1.29
+FROM busybox:1.32
 RUN wget -O - 'https://caddyserver.com/download/linux/amd64?plugins=http.webdav&license=personal&telemetry=off' | tar xz caddy
 
 FROM scratch
