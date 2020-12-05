@@ -1,0 +1,10 @@
+version: '3.3'
+  services:
+    caddy-webdav:
+      environment:
+        - USERNAME=a
+        - PASSWORD=b
+        - SCOPE=/caddy
+     ports:
+      - '80:80'
+     image: connesc/caddy-webdav
