@@ -1,10 +1,12 @@
 version: '3.3'
 services:
   caddy-webdav:
-    environment:
-      - USERNAME=a
-      - PASSWORD=b
-      - SCOPE=/caddy
+    container_name: caddy-webdav
+    volumes:
+      - '${PWD}/webdav:/srv'
     ports:
-    - '80:80'
-    image: connesc/caddy-webdav
+      - '82:8080'
+    image: sbkg0002/docker-caddy-webdav:v2-alpine
+    restart: unless-stopped
+    networks:
+      - notes

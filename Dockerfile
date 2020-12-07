@@ -1,13 +1,13 @@
-FROM busybox:1.32
-RUN wget -O - 'https://caddyserver.com/download/linux/amd64?plugins=http.webdav&license=personal&telemetry=off' | tar xz caddy
+FROM caddy:builder AS builder
 
-FROM scratch
-COPY --from=0 caddy /usr/local/bin/
+RUN xcaddy build \
+    --with github.com/mholt/caddy-webdav
+
+FROM caddy:2-alpine
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
 WORKDIR /caddy
 COPY Caddyfile ./
-ENV PORT=80 \
-    USERNAME= \
-    PASSWORD= \
-    SCOPE=/srv
-EXPOSE ${PORT}
 ENTRYPOINT [ "caddy" ]
+CMD [ "run" ]

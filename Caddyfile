@@ -1,8 +1,14 @@
-http://:{$PORT}
-gzip
-basicauth / {$USERNAME} {$PASSWORD}
-webdav {
-	scope {$SCOPE}
+{
+  http_port 8080
 }
-log stdout
-errors stderr
+http:// {
+  route /webdav/* {
+    webdav {
+      prefix /webdav/
+      root /srv/
+    }
+  }
+  log {
+    output stdout
+  }
+}
